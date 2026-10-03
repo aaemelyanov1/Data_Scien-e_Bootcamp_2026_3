@@ -1,0 +1,44 @@
+# Окружение проекта. Python 3.14, venv лежит в корне репозитория (`venv/`).
+#
+#   python3 -m venv venv
+#   venv/bin/pip install -r requirements.txt
+#
+# Версии зафиксированы точно: это не лёгкое приложение, а воспроизводимый
+# эксперимент, где молчаливое обновление библиотеки меняет числа.
+
+# --- данные, метрика, baseline ---
+numpy==2.5.3
+pandas==3.0.6
+scikit-learn==1.9.1
+scipy==1.18.1
+
+# --- ноутбук: ipykernel для Zed, jupytext для .py <-> .ipynb ---
+ipykernel==7.4.0
+jupyterlab==4.6.4
+jupytext==1.19.5
+
+# --- модели ---
+# lightgbm и xgboost на Python 3.14 ставятся готовым бинарным wheel'ом, тег
+# `py3-none`: внутри обычная C-библиотека (lib_lightgbm.so), а Python-обвязка
+# грузит её через ctypes. CPython C-API не используется, поэтому `cp314` в теге
+# не участвует и сборка из исходников не нужна. (А вот собирать из sdist нечем:
+# в системе нет ни g++, ни cmake — есть только gcc и make.)
+lightgbm==4.7.0
+xgboost==3.4.1
+catboost==1.2.10
+
+# --- подбор гиперпараметров ---
+optuna==5.0.0
+
+# --- парсинг UA ---
+ua-parser==1.0.1
+ua-parser-builtins==202610
+
+# --- графики ---
+matplotlib==3.11.2
+
+# ВНИМАНИЕ: ставить xgboost нужно с `--no-deps`. На Linux он тянет
+# `nvidia-nccl-cu13` (305 МБ) безусловной зависимостью, а нужен он только для
+# распределённого обучения на нескольких GPU. На одной карте проверено: GPU-путь
+# (`device='cuda'`) работает и без него.
+#     venv/bin/pip install --no-deps xgboost==3.4.1
