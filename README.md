@@ -4,8 +4,7 @@
 
 ## Содержимое
 
-- solution.py - основной код в формате jupytext (percent-скрипт, ячейки разделены # %%)
-- solution.ipynb - тот же код в виде ноутбука, пересобран через jupytext
+- solution.ipynb - основной код в виде ноутбука
 - metric.py - официальная метрика precision_at_recall, ей же считается локальный скор
 - quickstart.ipynb - слабый baseline из условия, не тронут
 - requirements.txt - зависимости с точными версиями
